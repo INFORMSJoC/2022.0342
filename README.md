@@ -1,107 +1,85 @@
 [![INFORMS Journal on Computing Logo](https://INFORMSJoC.github.io/logos/INFORMS_Journal_on_Computing_Header.jpg)](https://pubsonline.informs.org/journal/ijoc)
 
-# CacheTest
+# Learning Hidden Markov Models with Structured Transition Dynamics
 
 This archive is distributed in association with the [INFORMS Journal on
 Computing](https://pubsonline.informs.org/journal/ijoc) under the [MIT License](LICENSE).
 
 The software and data in this repository are a snapshot of the software and data
 that were used in the research reported on in the paper 
-[This is a Template](https://doi.org/10.1287/ijoc.2019.0000) by T. Ralphs. 
-The snapshot is based on 
-[this SHA](https://github.com/tkralphs/JoCTemplate/commit/f7f30c63adbcb0811e5a133e1def696b74f3ba15) 
-in the development repository. 
+[Learning Hidden Markov Models with Structured Transition Dynamics](https://doi.org/10.1287/ijoc.2022.0342) by S. Ma, A. Dehganian, G.-G. P. Garcia, and N. Serban. 
 
-**Important: This code is being developed on an on-going basis at 
-https://github.com/tkralphs/JoCTemplate. Please go there if you would like to
-get a more recent version or would like support**
 
 ## Cite
 
 To cite the contents of this repository, please cite both the paper and this repo, using their respective DOIs.
 
-https://doi.org/10.1287/ijoc.2019.0000
+https://doi.org/10.1287/ijoc.2022.0342
 
-https://doi.org/10.1287/ijoc.2019.0000.cd
+https://doi.org/10.1287/ijoc.2022.0342.cd
 
 Below is the BibTex for citing this snapshot of the respoitory.
 
 ```
-@misc{CacheTest,
-  author =        {T. Ralphs},
+@misc{LearningHMMs_repo,
+  author =        {Ma, Simian and Dehganian, Amin and Garcia, Gian-Gabriel P, and Serban, Nicoleta},
   publisher =     {INFORMS Journal on Computing},
-  title =         {{CacheTest}},
-  year =          {2020},
-  doi =           {10.1287/ijoc.2019.0000.cd},
-  url =           {https://github.com/INFORMSJoC/2019.0000},
-  note =          {Available for download at https://github.com/INFORMSJoC/2019.0000},
+  title =         {{Learning Hidden Markov Models with Structured Transition Dynamics}},
+  year =          {2024},
+  doi =           {10.1287/ijoc.2022.0342},
+  url =           {https://github.com/INFORMSJoC/2022.0342},
+  note =          {Available for download at https://github.com/INFORMSJoC/2022.0342},
 }  
 ```
 
 ## Description
 
-The goal of this software is to demonstrate the effect of cache optimization.
+The goal of this code is to fit a Hidden Markov Model (HMM) to data with multiple linear constraints imposed on the HMM's transition and emission probability matrices via the LDKB-FISTA algorithm. Alongside our LDKB-FISTA, we have also uploaded the scripts for running Matlab-Fimincon method, as well as the traditional Baum Welch method.
+The code are written in Matlab.
 
-## Building
+### How to use it
+**Data Description**
 
-In Linux, to build the version that multiplies all elements of a vector by a
-constant (used to obtain the results in [Figure 1](results/mult-test.png) in the
-paper), stepping K elements at a time, execute the following commands.
+The data folder contains simulated data related to sports-related concussions. The CSV files are named according to the following convention: gender (male/female), concussion history (0-2 concussions or 3+ concussions), and the type of score (SCATSEV or SAC). For example, a file named SAC_category_F_Hx02.csv contains SAC scores for females with 0-2 concussions. For more detailed information about the sports-related concussion data, please refer to the accompanying manuscript.
 
-```
-make mult
-```
+**Running the LDKB-FISTA Algorithm**
 
-Alternatively, to build the version that sums the elements of a vector (used
-to obtain the results [Figure 2](results/sum-test.png) in the paper), stepping K
-elements at a time, do the following.
+Our implementation of the LDKB-FISTA algorithm is provided in the Matlab script LDKBFISTA.m. To use the script, follow these steps:
 
-```
-make clean
-make sum
-```
+**Open the Script** 
 
-Be sure to make clean before building a different version of the code.
+Open the LDKBFISTA.m file in Matlab.
+Specify the Input Files: Modify the script to specify the input files you wish to analyze. For example, to estimate the transition and emission probability matrices for females with 0-2 concussion history, set the input files to SAC_category_F_Hx02.csv and SCATSEV_category_F_Hx02.csv.
 
-## Results
+**Run the Script**
 
-Figure 1 in the paper shows the results of the multiplication test with different
-values of K using `gcc` 7.5 on an Ubuntu Linux box.
+Execute the script in Matlab. The output transition and emission probability matrices will be saved as two separate CSV files in the same directory.
 
-![Figure 1](results/mult-test.png)
+Running the Comparing Methods
+The methods for comparison, Fmincon and Baum Welch, can be executed in a similar manner. Open the respective Matlab scripts, specify the input files, and run the scripts.
 
-Figure 2 in the paper shows the results of the sum test with different
-values of K using `gcc` 7.5 on an Ubuntu Linux box.
+## Replicating the Experiments
 
-![Figure 1](results/sum-test.png)
+To replicate the experiments presented in our manuscript, follow these steps:
 
-## Replicating
+**Run LDKBFISTA.m**
 
-To replicate the results in [Figure 1](results/mult-test), do either
+Execute the LDKBFISTA.m script for each of the four sports-related concussion groups (male/female with 0-2/3+ concussions).
 
-```
-make mult-test
-```
-or
-```
-python test.py mult
-```
-To replicate the results in [Figure 2](results/sum-test), do either
+**Obtain the Estimated Matrices**
 
-```
-make sum-test
-```
-or
-```
-python test.py sum
-```
+For each group, obtain the estimated transition and emission probability matrices.
 
-## Ongoing Development
+**Compute Predictive Distributions**
 
-This code is being developed on an on-going basis at the author's
-[Github site](https://github.com/tkralphs/JoCTemplate).
+Using the learned Hidden Markov Model (HMM) parameters, compute the predictive distributions.
+For more details on the evaluation process, please refer to Appendix J of the manuscript.
 
-## Support
+**Additional Information**
+For further details and comprehensive explanations, please refer to the manuscript. If you have any questions or encounter any issues, feel free to contact the authors.
 
-For support in using this software, submit an
-[issue](https://github.com/tkralphs/JoCTemplate/issues/new).
+
+### Data
+
+Note that the data included in this repository is a synthetic version of the data used in our analysis. We provide synthetic data because the FITBIR data cannot be shared publicly. However, the NCAA-DoD CARE dataset is available in the FITBIR database (https://fitbir.nuh.gov/) following an approved data request.
+
