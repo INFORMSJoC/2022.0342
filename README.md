@@ -26,7 +26,7 @@ Below is the BibTex for citing this snapshot of the respoitory.
   publisher =     {INFORMS Journal on Computing},
   title =         {{Learning Hidden Markov Models with Structured Transition Dynamics}},
   year =          {2024},
-  doi =           {10.1287/ijoc.2022.0342},
+  doi =           {10.1287/ijoc.2022.0342.cd},
   url =           {https://github.com/INFORMSJoC/2022.0342},
   note =          {Available for download at https://github.com/INFORMSJoC/2022.0342},
 }  
